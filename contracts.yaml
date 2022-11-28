@@ -1,0 +1,45 @@
+Services:
+	- PatientService
+	- DoctorService
+	- VisitService
+	- CommunicationService
+	- Gateway/UnifiedAuthenticationService
+
+Contracts: 
+	PatientService:
+		DoctorService:
+			- /rateDoctor
+			
+	PatientService:
+		VisitService:
+			- /register
+			- /checkVisits
+			- /modifyVisit
+			
+	VisitService:
+		PatientService:
+			- /checkInsurance
+			- /notifyAboutVisitModification
+		
+	VisitService:
+		DoctorService:
+			- /notifyAboutVisitModification
+			
+	DoctorService:
+		VisitService:
+			- /checkVisits
+			- /modifyVisit
+	
+	DoctorService:
+		PatientService:
+			- /checkPatientHistory
+			- /saveMedicalExaminationResult
+			- /issuePrescription
+	
+	
+	CommunicationService:
+		- /ws
+		
+	Gateway/UnifiedAuthenticationService:
+		- /authenticate
+		- /checkAuthentication
