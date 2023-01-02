@@ -73,7 +73,7 @@ Contracts:
 						}
 						
 				    ex. return body:
-				    		'Saved Examination Result'
+				    		'Saved Examination Result' | 'Patient don't exist'
 
 			- endpoint: /doctor/getPatientInfo
 				    method: GET
