@@ -18,8 +18,28 @@ Contracts:
 			
 	VisitService:
 		PatientService:
-			- /checkInsurance
-			- /notifyAboutVisitModification
+			- endpoint:  /visit/checkInsurance
+				     method: GET
+				     fields: 
+				     		patientId: Number 
+						
+				     ex. return body:
+				     		'Insured' | 'Not insured'
+				     
+						
+			- endpoint: /visit/notifyAboutVisitModification
+				    method: POST
+				    fields: 
+				    		patientId: Number,
+						{
+							description: String
+						}
+						
+				    ex. return body:
+				    		'Saved notification' | 'Patient don't exist'
+				    
+						
+				    		
 		
 	VisitService:
 		DoctorService:
@@ -32,9 +52,57 @@ Contracts:
 	
 	DoctorService:
 		PatientService:
-			- /checkPatientHistory
-			- /saveMedicalExaminationResult
-			- /issuePrescription
+			- endpoint: /doctor/checkPatientHistory
+				    method: GET
+				    fields: 
+				    		patientId: Number
+						
+				    ex. return body:
+				   		[
+    							"PatientHistory{id=1, description='desc', doctor='doktorek doktorski'}"
+						]
+				    		
+			
+			- endpoint: /doctor/saveMedicalExaminationResult
+				    method: POST
+				    fields: 
+				    		patientId: Number,
+						{
+							description: String,
+							doctor: String
+						}
+						
+				    ex. return body:
+				    		'Saved Examination Result'
+
+			- endpoint: /doctor/getPatientInfo
+				    method: GET
+				    fields: 
+				    		patientId: Number
+						
+				    ex. return body:
+				    		{
+						    "id": 3,
+						    "firstName": "Adddsiik",
+						    "lastName": "Adamiak",
+						    "pesel": "2335ww33472",
+						    "birthDate": "2000-10-17T17:08:39.772+00:00",
+						    "phoneNumber": "123434541",
+						    "email": "a@gmail.com",
+						    "insuranceNumber": "32322b36",
+						    "address": {
+							"id": 4,
+							"country": "Poland",
+							"city": "Szczecin",
+							"street": "Dluga",
+							"postalCode": "12416",
+							"flatNumber": "14"
+						    },
+						    "patientHistory": [
+ 							"PatientHistory{id=1, description='desc', doctor='doktorek doktorski'}"
+						    ],
+						    "notification": []
+						}
 	
 	
 	CommunicationService:
