@@ -8,7 +8,15 @@ Services:
 Contracts: 
 	PatientService:
 		DoctorService:
-			- /rateDoctor
+			- endpoint: /rateDoctor
+				method: PUT
+				request:
+					doctorId: String
+					rating: 1..5
+					description: String | null
+				response: 
+					status: "Ok" | "Error"
+
 			
 	PatientService:
 		VisitService:
@@ -43,8 +51,14 @@ Contracts:
 		
 	VisitService:
 		DoctorService:
-			- /notifyAboutVisitModification
-			
+			- endpoint: /visit/notifyAboutVisitModification
+				method: POST
+				request: 
+				 	patientId: Number,
+				 	description: String
+				response: 
+					status: "Ok" | "Error"
+	
 	DoctorService:
 		VisitService:
 			- /checkVisits
